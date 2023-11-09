@@ -57,7 +57,7 @@ struct AgeView: View {
 }
 ```
 
-Oh shit, now we have the business-logic and the state inside the View, even though that View once was a Model, but now its a View, a View without frame colors and stuff...\
+Oh no, now we have the business-logic and the state inside the View, even though that View once was a Model, but now its a View, a View without frame colors and stuff...\
 This looks like a crap to a clean-coder. Our business-logic is moving the age. And we have State is inside the View! But wait View is also just a value so how do we fix this Apple crap!? You have to give us patterns Apple or we are doomed!
 
 # Unlearning the MVVM
