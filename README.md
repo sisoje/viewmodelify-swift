@@ -2,7 +2,7 @@
 It starts with a value.
 An int value.\
 And a View.
-With a frame, colors and shit... Well, not so fast!
+With a frame, colors and shit... well, we will see about that...
 
 # Unlearning the View
 Now put a value into the SwiftUI magic and blow the minds in two lines of code like this:
@@ -13,10 +13,10 @@ extension Int: View {
     }
 }
 ```
-All value types and only value types are actually views with that Apple magic! But are they? Where are the frames and colors and shit? I better shut up and pretend its a View now...
+All value types and only value types are potential SwiftUI Views with that Apple magic! But are they Views? Where are the frames and colors and shit? I better shut up and pretend its a View now. What is this body then? Is it a business logic? It converts value to a String and then to Text so it has to be the busisness-logic. But how can business logic return a View!? What is this View anyway? So confusing...
 
 # Learning the (SwiftUI) View
-Yes it really works, you can see the view stack on the screen:
+At least it really works, you can see the view stack of integers on the screen:
 ```
 struct ContentView: View {
     var body: some View {
@@ -28,7 +28,6 @@ struct ContentView: View {
     }
 }
 ```
-
 In order to have more control we better wrap this int-value to a struct so it has a meaning and its still a value-type:
 ```
 struct Age {
@@ -43,18 +42,15 @@ extension Age: View {
   }
 }
 ```
-So now we are even more confused and we have only started...
 
 # Get down to the bussiness
-Now we need to move things a bit with some business logic, lets make full blown mishmash:
+Now we need to move things a bit with some state and some real business-logic, lets make full blown mishmash:
 ```
 struct AgeView: View {
   @State var age = 21
   var body: some View {
-    VStack {
        Button("Bithday party") { age += 1 }
        Text("My age is \(age)")
-    }
   }
 }
 ```
