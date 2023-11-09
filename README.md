@@ -51,8 +51,10 @@ Now we need to move things a bit with some business logic, lets make full blown 
 struct AgeView: View {
   @State var age = 21
   var body: some View {
-    Button("Bithday party") { age += 1 }
-    Text("My age is \(age)")
+    VStack {
+       Button("Bithday party") { age += 1 }
+       Text("My age is \(age)")
+    }
   }
 }
 ```
