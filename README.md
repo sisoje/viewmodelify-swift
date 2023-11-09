@@ -2,7 +2,7 @@
 It starts with a value.
 An int value.\
 And a View.
-With a frame, colors and shit... well, we will see about that...
+With a frame, colors and stuff... well, we will see about that...
 
 # Unlearning the View
 Now put a value into the SwiftUI magic and blow the minds in two lines of code like this:
@@ -13,7 +13,11 @@ extension Int: View {
     }
 }
 ```
-All value types and only value types are potential SwiftUI Views with that Apple magic! But are they Views? Where are the frames and colors and shit? I better shut up and pretend its a View now. What is this body then? Is it a business logic? It converts value to a String and then to Text so it has to be the busisness-logic. But how can business logic return a View!? What is this View anyway? So confusing...
+All value types and only value types are potential SwiftUI Views with that Apple magic!\
+But are they Views? Where are the frames and colors and shit? I better shut up and pretend its a View now.\
+What is this body then? Is it a business logic? It converts value to a String and then to Text so it has to be the busisness-logic.\
+But how can business logic return a View? And why we have business-logic inside the View? What is this View anyway?\
+So confusing...
 
 # Learning the (SwiftUI) View
 At least it really works, you can see the view stack of integers on the screen:
