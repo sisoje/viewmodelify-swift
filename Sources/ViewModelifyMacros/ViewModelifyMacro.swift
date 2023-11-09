@@ -5,7 +5,13 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 public struct ViewModelify: MemberMacro, ExtensionMacro {
-    public static var isTesting = true
+    public static var isTesting = {
+        var isDebug = false
+        assert({
+            isDebug = true
+        }() == ())
+        return isDebug
+    }()
 
     public static func expansion(of node: SwiftSyntax.AttributeSyntax, providingMembersOf declaration: some SwiftSyntax.DeclGroupSyntax, in context: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
         var res: [SwiftSyntax.DeclSyntax] = ["var wrappedValue: Self { self }"]
