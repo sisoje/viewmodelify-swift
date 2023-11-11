@@ -145,6 +145,12 @@ extension AgeModel: View {
 ```
 Now tests are easy to implement.
 
+# Conclusion
+- You can isolate most of the business-logic into a property wrapper.
+- You can inject dependencies with environment.
+- You can test it using ViewInspector without polluting the View.
+- You can reuse the same code in multiple views.
+
 # Usage
 To hide boilerplate code we use swift macros so every model has boilerplate lines automatically. Just use attached macro `ViewModelify` in your code and attach it to the property wrapper that is your decoupled model:
 ```
@@ -155,9 +161,3 @@ To hide boilerplate code we use swift macros so every model has boilerplate line
 }
 ```
 After adding the macro your `AgeModel` will act as a SwiftUI view in the tests so you can test it using ViewInspector
-
-# Conclusion
-- You can isolate most of the business-logic into a property wrapper.
-- You can inject dependencies with environment.
-- You can test it using ViewInspector without polluting the View.
-- You can reuse the same code in multiple views.
