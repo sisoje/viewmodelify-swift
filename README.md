@@ -131,7 +131,7 @@ There is no View remember. We test values and states.
 ### Unit tests
 Great job was done by Alex implementing ViewInspector, so we can make some unit-tests with SwitUI views because they are not views.
 ### Setting up Viewinspector
-First make ViewInspector happy by adding inspect callback. To hide boilerplate code we use swift macros so every model has these two lines automatically:
+First make ViewInspector happy by adding inspect callback.
 ```
 var wrappedValue: Self { self } // for production
 var inspect: ((Self) -> Void)? // for testing
@@ -144,6 +144,17 @@ extension AgeModel: View {
 }
 ```
 Now tests are easy to implement.
+
+# Usage
+To hide boilerplate code we use swift macros so every model has boilerplate lines automatically. Just use attached macro `ViewModelify` in your code and attach it to the property wrapper that is your decoupled model:
+```
+@ViewModelify
+@propertyWrapper struct AgeModel: DynamicProperty {
+    @State var age: Int = 21
+    func makeBirthdayParty() { age += 1 }
+}
+```
+After adding the macro your `AgeModel` will act as a SwiftUI view in the tests so you can test it using ViewInspector
 
 # Conclusion
 - You can isolate most of the business-logic into a property wrapper.
