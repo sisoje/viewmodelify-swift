@@ -84,16 +84,20 @@ class SFViewmodel: ObservableObject {
 But wait, our button is also just a value, a struct, a model! It is also part of our business-logic so lets complete our viewmodel:
 ```
 extension SFViewmodel {
-    var button: some View { Button("My \(age + 1). bithday party", action: makeBirthdayParty) }
+    var body: some View { Button("My \(age + 1). bithday party", action: makeBirthdayParty) }
 }
 ```
-Congrats! We reinvented SwiftUI but its a reference-type crap, with memory leaks and shit!
+### ViewModel = Model = View!
+Look, our ViewModel looks just like the Model we started with and our Model was a View. We did a complete View -> ViewModel rewrite. We reinvented SwiftUI only now it is a reference-type crap, with memory leaks and shit!
 
-### But its testablah!?
-Hey, we can not even inject environment here. So its not even testable. Apple does not support this crap. Just stop it already!
+### But its testablah
+Maybe, but it can never be a SwiftUI view because its a class, a reference-type. We can not inject environment into a class, only into a value that is a SwiftUI view. So its not even properly testable in SwiftUI. Apple does not support this crap.
+
+### But Apple made ObservableObject
+Yes, Apple made ObservableObject when we want to create a state that outlive the current view so other views can attach to that state using ObservedObject or EnvironmentObject. Apple did not make ObservableObject so you can copy paste code from value to class and make a crappy replica of SwiftUI.
 
 # Apple killed MVVM
-What if we could keep this viewmodel as a value type and have it decoupled from the view? Just for fun...
+What if we could keep this viewmodel as a value type and have it decoupled from the parent view? Just for fun...
 ### Decoupled is good, right?
 Well, not always, you need to glue decoupled parts together eventually, and glue can be messy... But it makes Uncle Bob happy because you can **test** decoupled parts in isolation.
 ### Values decoupled
@@ -107,14 +111,14 @@ Here is how to make a value-type model with the full-blown support from Apple:
 In this way we make it composable (and testable). Now shove this model into any view, here is a nice View:
 ```
 struct NiceView: View {
-  @AgeModel var vm
+  @AgeModel var model
   var body: some View {
-    Button { Button("My \(vm.age + 1). bithday party") { vm.makeBirthdayParty() } }
+    Button { Button("My \(model.age + 1). bithday party") { model.makeBirthdayParty() } }
   }
 }
 ```
 ### Clean state
-State needs to be as clean as possible, cleaner than Uncle Bobs definition of clean. We can inject some logic as dependency and make state cleaner.
+State needs to be as clean as possible, cleaner than Uncle Bobs definition of clean. We can inject some logic as dependency and make state even cleaner.
 ```
 @propertyWrapper struct AgeModel: DynamicProperty {
     @Environment(\.agingFunction) var agingFunction
