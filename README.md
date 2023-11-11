@@ -74,15 +74,16 @@ Real devs need a pattern, a **solid** name for it, and then stick to that patter
 ### It has to be a **MF** pattern?
 Its a **M**odel with a body **F**unction. But that name should be banned.
 ### Is it a new **SF** pattern from Apple?
-We have a **S**tate and a **F**unction. Apple loves **SF** that would be a perfect name.\
-Now we miss MV* completely. All great devs use some MV* pattern. Lets couple state and functions together to a mishmash class and call it a view-model:
+We have a **S**tate and a **F**unction. Apple loves **SF** that would be a perfect name.
+### Introducing VM
+All great devs use some kind of MV* pattern. Lets couple state and functions together to a mishmash class and call it a view-model:
 ```
 class SFViewmodel: ObservableObject {
     @Published var age = 21
     func makeBirthdayParty() { age += 1 }
 }
 ```
-But wait, our button is also just a value, a struct, a model! It is also part of our business-logic so lets complete our viewmodel:
+But wait, our button is also just a value, a model. It is part of our business-logic so lets complete our viewmodel:
 ```
 extension SFViewmodel {
     var body: some View { Button("My \(age + 1). bithday party", action: makeBirthdayParty) }
