@@ -1,6 +1,6 @@
 # viewmodelify-swift
 It starts with a value. An Int value.\
-And a View. With a frame, colors and shit... well, we will see about that...
+And a View. With a frame and colors and shit... well, we will see about that...
 
 # Unlearning the View
 Now put a value into the SwiftUI and your mind is blown in two lines of code, like this:
