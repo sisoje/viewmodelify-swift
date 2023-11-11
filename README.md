@@ -16,7 +16,7 @@ All value types and only value types are potential SwiftUI Views with that Apple
 ### Business logic
 What is this body then? Is it a business logic? It converts value to a String and then constructs Text struct value so it has to be the busisness-logic. But Text is also a View!?
 ### How can business logic return a View?
-Why do we have business-logic inside the View? Hey Apple what is this really a View? Where is the frame? So confusing...
+Why do we have business-logic inside the View? Hey Apple what is this really a View? So confusing...
 
 # Learning the Model
 At least it works. You can see the view stack of integer-views on the screen and the code is clean. Uncle Bob would not agree, but its clean:
