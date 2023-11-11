@@ -95,7 +95,7 @@ Hey, we can not even inject environment here. So its not even testable. Apple do
 # Apple killed MVVM
 What if we could keep this viewmodel as a value type and have it decoupled from the view? Just for fun...
 ### Decoupled is good, right?
-Well, not always, but it makes Uncle Bob happy because you can **test** decoupled parts in isolation.
+Well, not always, you need to glue decoupled parts together eventually, and glue can be messy... But it makes Uncle Bob happy because you can **test** decoupled parts in isolation.
 ### Values decoupled
 Here is how to make a value-type model with the full-blown support from Apple:
 ```
