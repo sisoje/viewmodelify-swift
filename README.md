@@ -89,7 +89,7 @@ extension SFViewmodel {
 ```
 Congrats! We reinvented SwiftUI but its a reference-type crap, with memory leaks and shit!
 
-### But its testable!?
+### But its testablah!?
 Hey, we can not even inject environment here. So its not even testable. Apple does not support this crap. Just stop it already!
 
 # Apple killed MVVM
