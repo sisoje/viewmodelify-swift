@@ -140,7 +140,7 @@ As Apple says it just works!
 # Testing
 How do we test our model that is actually a view? Real devs never test views!
 ### What are we testing?
-There is no View remember. So there is noe VIEW-model. We will test values and states.
+There is no View remember. There is no VIEW-model either. We will test SwiftUI views as they are - values with states.
 ### Unit tests
 Great job was done by Alex implementing ViewInspector, so we can make some unit-tests with SwitUI views because they are just models.
 ### Setting up Viewinspector
