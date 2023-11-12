@@ -94,7 +94,7 @@ extension SFViewmodel {
 }
 ```
 ### ViewModel = Model = View!
-Look, we did a complete View -> ViewModel rewrite. We reinvented SwiftUI only now it is a reference-type crap, with memory leaks and shit! We captured `self` in the button already. Its very easy to make leaks.
+Look, our view is now empty, everything is in the view model. We reinvented SwiftUI only now it is a reference-type crap, with memory leaks and shit! We captured `self` in the button already. Its very easy to make leaks.
 
 ### But its testablah
 Maybe, but it is a class, a reference-type. We can not inject environment inside a class. We can inject environment only into a value type that is inside SwiftUI view hierarchy. Whats the point of testing something that does not work properly?
