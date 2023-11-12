@@ -100,7 +100,7 @@ Look, our view is now empty, everything is in the view model. We reinvented Swif
 Maybe, but it is a class, a reference-type. We can not inject environment inside a class. We can inject environment only into a value type that is inside SwiftUI view hierarchy. Whats the point of testing something that does not work properly?
 
 ### But Apple made ObservableObject for a reason
-Yes, Apple made ObservableObject when we want to use a state that outlives the current view so we can attach to that state using ObservedObject or EnvironmentObject. Apple did not make ObservableObject so you can copy code from a struct and paste it to a class.
+Yes, Apple made ObservableObject when we want to use a state that outlives the current view so we can attach to that state using ObservedObject or EnvironmentObject. Apple did not make ObservableObject so you can move code from struct to class.
 
 # Decoupling
 As our projekct grows some view will get bigger and it would be good to decouple some parts out of the view.
