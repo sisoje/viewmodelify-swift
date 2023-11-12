@@ -19,7 +19,7 @@ What is this body then? Is it a business logic? It converts value to a String an
 Why do we have business-logic inside the View? Hey Apple what is this really a View? So confusing...
 
 # Learning the Model
-At least it works. You can see the view stack of integer-views on the screen and the code is clean. Uncle Bob would not agree, but its clean:
+Int value as a view really works. You can see the stack of integer-views on the screen and the code is clean. Uncle Bob would not agree, but its clean:
 ```
 struct ContentView: View {
     var body: some View {
@@ -47,7 +47,10 @@ extension AgeModel: View {
 }
 ```
 ### There are no Views its all Models!
-Where are the frames colors and shit? WTF Apple!?
+Where are the frames colors and shit? How do we make view-model when there is no view?
+
+### Virtual views 
+Note that Apple developed SwifUI by using ideas from ELM/MVU architecture. Some call ELM views "virtual views", maybe we can call them too?
 
 # Get down to the bussiness
 Now we need to move things a bit with some state:
@@ -64,46 +67,49 @@ extension AgeModel: View
   }
 }
 ```
-Oh no! Now we have more business-logic and the state inside the View...
+Now we have more business-logic and the state inside the View...
 
 ### Give us patterns Apple or we are doomed!
-This looks like a crap to a clean-coder dev. Our business-logic is increasing the `age` in the middle of the View. How do we fix this Apple crap!?
+This looks like a crap to a clean-coder dev. Our business-logic is increasing the `age` in the middle of the View. How do we fix this Apple crap?
 
-# Unlearning the MV*
-Real devs need a pattern, a **solid** name for it, and then stick to that pattern no matter what. Could we make it look like a good old MVVM?
+# Apple killed MVVM
+Real devs need a pattern, a **solid** name for it, and then stick to that pattern no matter what.\
+SwiftUI view is actually a **M**odel with a body **F**unction.
 ### It has to be a **MF** pattern?
-Its a **M**odel with a body **F**unction. But that name should be banned.
+But that name should be banned. We also have a **S**tate and a **F**unction.
 ### Is it a new **SF** pattern from Apple?
-We have a **S**tate and a **F**unction. Apple loves **SF** that would be a perfect name.
-### Introducing VM
-All great devs use some kind of MV* pattern. Lets couple state and functions together to a mishmash class and call it a view-model:
+That would be a perfect name for Apple they love SF, but thats not a good practice.
+### Introducing VM in SwiftUI
+All great devs use some kind of MV* pattern. MVVM proved to be a great success. Lets couple state and functions together to a mishmash class and call it a view-model:
 ```
 class SFViewmodel: ObservableObject {
     @Published var age = 21
     func makeBirthdayParty() { age += 1 }
 }
 ```
-But wait, our button is also just a value, a model. It is part of our business-logic so lets complete our viewmodel:
+Our button is also just a value, a model. It is part of our business-logic so lets complete our viewmodel:
 ```
 extension SFViewmodel {
     var body: some View { Button("My \(age + 1). bithday party", action: makeBirthdayParty) }
 }
 ```
 ### ViewModel = Model = View!
-Look, we did a complete View -> ViewModel rewrite. We reinvented SwiftUI only now it is a reference-type crap, with memory leaks and shit! Yes there is a referrence cycle there already!
+Look, we did a complete View -> ViewModel rewrite. We reinvented SwiftUI only now it is a reference-type crap, with memory leaks and shit! We captured `self` in the button already. Its very easy to make leaks.
 
 ### But its testablah
-Maybe, but it can never be a SwiftUI view because its a class, a reference-type. We can not inject environment into a class. We can inject environment only into a value that is a SwiftUI view. So its not even properly testable in SwiftUI. Apple does not support this crap.
+Maybe, but it is a class, a reference-type. We can not inject environment inside a class. We can inject environment only into a value type that is inside SwiftUI view hierarchy. Whats the point of testing something that does not work properly?
 
 ### But Apple made ObservableObject for a reason
-Yes, Apple made ObservableObject when we want to create a state that outlives the current view so other views can attach to that state using ObservedObject or EnvironmentObject. Apple did not make ObservableObject so you can copy code from a struct and paste it to a class and make a crappy replica of SwiftUI.
+Yes, Apple made ObservableObject when we want to use a state that outlives the current view so we can attach to that state using ObservedObject or EnvironmentObject. Apple did not make ObservableObject so you can copy code from a struct and paste it to a class.
 
-# Apple killed MVVM
-What if we could write this viewmodel as a value type and have it decoupled from the parent view?
+# Decoupling
+As our projekct grows some view will get bigger and it would be good to decouple some parts out of the view.
 ### Decoupled is good, right?
-Well, not always, you need to glue decoupled parts together eventually, and glue can be messy... But it makes Uncle Bob happy because you can **test** decoupled parts in isolation.
-### Values decoupled
-Here is how to make a value-type model with the full-blown support from Apple:
+Well, not always, because you need to glue decoupled parts together eventually, and glue can be messy... But it makes Uncle Bob happy because you can **test** decoupled parts in isolation.
+### Decouple without breaking
+Decoupling using ObservableObject proved to be a major fail. We have to find a way that does not break things.
+### DynamicProperty
+DynamicProperty allows us to use value types and will work inside view hierachies:
 ```
 @propertyWrapper struct AgeModel: DynamicProperty {
     @State var age: Int = 21
@@ -134,7 +140,7 @@ As Apple says it just works!
 # Testing
 How do we test our model that is actually a view? Real devs never test views!
 ### What are we testing?
-There is no View remember. We will test values and states.
+There is no View remember. So there is noe VIEW-model. We will test values and states.
 ### Unit tests
 Great job was done by Alex implementing ViewInspector, so we can make some unit-tests with SwitUI views because they are just models.
 ### Setting up Viewinspector
@@ -142,7 +148,6 @@ First make ViewInspector happy by adding inspect callback.
 ```
 var inspect: ((Self) -> Void)? // for testing
 ```
-
 Then, every model is automatically conformed to the View for testing purposes:
 ```
 extension AgeModel: View {
@@ -158,7 +163,7 @@ Now tests are easy to implement.
 - You can reuse the same code in multiple views.
 
 # Usage
-To hide boilerplate code we use swift macros so every model has boilerplate lines automatically. Just use attached macro `ViewModelify` in your code and attach it to the property wrapper that is your decoupled model:
+To hide boilerplate code we use swift macros so every model has boilerplate lines automatically. Use macro `ViewModelify` in your code and attach it to the property wrapper that is your model:
 ```
 @ViewModelify
 @propertyWrapper struct AgeModel: DynamicProperty {
@@ -166,5 +171,5 @@ To hide boilerplate code we use swift macros so every model has boilerplate line
     func makeBirthdayParty() { age += 1 }
 }
 ```
-### Note that `wrappedValue` will be generated also
+### Note that model `wrappedValue` will be generated also
 After adding the macro our `AgeModel` will act as a SwiftUI view in the tests so we can test it using ViewInspector
