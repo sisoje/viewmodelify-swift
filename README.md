@@ -52,7 +52,7 @@ Where are the frames colors and shit? How do we make view-model when there is no
 ### Virtual views 
 Note that Apple developed SwifUI by using ideas from ELM/MVU architecture. Some call ELM views "virtual views", maybe we can call them too?
 
-# Get down to the bussiness
+# States
 Now we need to move things a bit with some state:
 ```
 struct AgeModel {
