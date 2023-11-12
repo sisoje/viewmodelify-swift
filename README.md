@@ -172,4 +172,8 @@ To hide boilerplate code we use swift macros so every model has boilerplate line
 }
 ```
 ### Note that model `wrappedValue` will be generated also
+Wrapped value is always this:
+```
+var wrappedValue: Self { self }
+```
 After adding the macro our `AgeModel` will act as a SwiftUI view in the tests so we can test it using ViewInspector
