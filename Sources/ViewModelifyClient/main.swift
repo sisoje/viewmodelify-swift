@@ -2,6 +2,6 @@ import SwiftUI
 import ViewModelify
 
 @ViewModelify
-struct Modelified {
-    let int: Int
+@propertyWrapper struct MainModel: DynamicProperty {
+    @State var value = 0
 }
