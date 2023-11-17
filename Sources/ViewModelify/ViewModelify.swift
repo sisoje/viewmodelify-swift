@@ -1,9 +1,17 @@
+import Combine
 import SwiftUI
 
-@attached(extension, conformances: View, names: arbitrary)
-@attached(member, names: arbitrary)
-public macro ModelifyAppear() = #externalMacro(module: "ViewModelifyMacros", type: "ModelifyAppear")
+public final class Inspection<V> {
+    public init() {}
+    public let notice = PassthroughSubject<UInt, Never>()
+    public var callbacks: [UInt: (V) -> Void] = [:]
+    public func visit(_ view: V, _ line: UInt) {
+        if let callback = callbacks.removeValue(forKey: line) {
+            callback(view)
+        }
+    }
+}
 
 @attached(extension, conformances: View, names: arbitrary)
 @attached(member, names: arbitrary)
-public macro ModelifyReceive() = #externalMacro(module: "ViewModelifyMacros", type: "ModelifyReceive")
+public macro ViewModelify() = #externalMacro(module: "ViewModelifyMacros", type: "ViewModelify")
