@@ -143,7 +143,8 @@ How do we test our model that is actually a view? Real devs never test views!
 There is no View remember. There is no VIEW-model either. We will test SwiftUI views as they are - values with states.
 ### Unit tests
 Great job was done by Alex implementing ViewInspector, so we can make some unit-tests with SwitUI views because they are just models.
-### Setting up Viewinspector
+
+### Setting up Viewinspector with onAppear
 First make ViewInspector happy by adding inspect callback.
 ```
 var inspect: ((Self) -> Void)? // for testing
@@ -152,6 +153,18 @@ Then, every model is automatically conformed to the View for testing purposes:
 ```
 extension AgeModel: View {
   var body: some View { EmptyView().onAppear { inspect?(self) } }
+}
+```
+
+### Setting up Viewinspector with onReceive
+First make ViewInspector happy by adding inspect callback.
+```
+let inspection = Inspection<Self>()
+```
+Then, every model is automatically conformed to the View for testing purposes:
+```
+extension AgeModel: View {
+  var body: some View { EmptyView().onReceive(inspection.notice) { self.inspection.visit(self, $0) } }
 }
 ```
 Now tests are easy to implement.
@@ -165,7 +178,7 @@ Now tests are easy to implement.
 # Usage
 To hide boilerplate code we use swift macros so every model has boilerplate lines automatically. Use macro `ViewModelify` in your code and attach it to the property wrapper that is your model:
 ```
-@ViewModelify
+@ModelifyAppear or @ModelifyReceive
 @propertyWrapper struct AgeModel: DynamicProperty {
     @State var age: Int = 21
     func makeBirthdayParty() { age += 1 }
