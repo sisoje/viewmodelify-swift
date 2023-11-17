@@ -30,7 +30,18 @@ public struct ViewModelify: MemberMacro, ExtensionMacro {
         }
         let decl: DeclSyntax = """
         extension \(raw: type.trimmedDescription): View {
-            var body: some View { EmptyView().onAppear { didAppear?(self) }.onReceive(inspection.notice) { self.inspection.visit(self, $0) } }
+          var body: some View {
+            let _ = Self._printChanges()
+            EmptyView()
+              .onAppear {
+                print("\(raw: type.trimmedDescription).onAppear")
+                didAppear?(self)
+              }
+              .onReceive(inspection.notice) {
+                print("\(raw: type.trimmedDescription).onReceive")
+                self.inspection.visit(self, $0)
+              }
+          }
         }
         """
         let ext = decl.cast(ExtensionDeclSyntax.self)
