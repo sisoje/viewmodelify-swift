@@ -8,7 +8,7 @@ It does not even have to be a struct. Just a value.
 
 ### Business logic
 All functionality that is inside the SwiftUI.View conforming value is some business logic.
-The `body` property is also some business logic. We usually keep `body` inside the SwiftUI.View struct. We do not decouple it to some piece of junk code just so we could test it.
+The `body` property is also some business logic. We usually keep `body` inside the SwiftUI.View struct. We never decouple `body` into some piece of junk code just so we could test it.
 However we can decouple some of the business logic out of the SwiftUI.View into a separate unit of code, but we have to do it properly.
 
 ### Decoupling using Observable classes
