@@ -12,7 +12,8 @@ struct SomeViewModifier: ViewModifier {
 @ViewInspectify
 struct SomeView: View {
     var body: some View {
-        EmptyView().applyViewInspectorModifiers(self)
+        EmptyView()
+            .applyViewInspectorModifiers(self)
     }
 }
 

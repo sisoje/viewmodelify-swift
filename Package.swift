@@ -6,7 +6,7 @@ import CompilerPluginSupport
 
 let package = Package(
     name: "ViewModelify",
-    platforms: [.macOS(.v12), .iOS(.v15), .tvOS(.v15), .watchOS(.v8), .macCatalyst(.v15)],
+    platforms: [.macOS(.v11), .iOS(.v14), .tvOS(.v14), .watchOS(.v7), .macCatalyst(.v14)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(

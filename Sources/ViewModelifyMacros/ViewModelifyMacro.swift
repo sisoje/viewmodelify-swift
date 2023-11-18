@@ -58,7 +58,9 @@ public struct ViewModelify: MemberMacro, ExtensionMacro {
         let decl2: DeclSyntax = """
         extension \(raw: type.trimmedDescription): View {
           var body: some View {
-            let _ = Self._printChanges()
+            if #available(macOS 12, iOS 15, tvOS 15, watchOS 8, macCatalyst 15, *) {
+              let _ = Self._printChanges()
+            }
             EmptyView()
               .applyViewInspectorModifiers(self)
           }
