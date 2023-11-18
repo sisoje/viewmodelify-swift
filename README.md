@@ -40,7 +40,7 @@ struct SwiftDataView: View {
 ### Macros
 We can test both our view and our model in the same way:
 - For models we use @ViewModelify macro
-- For views we use @ViewInspectify macro
+- For views and view-modifiers we use @ViewInspectify macro
 
 ### Boilerplate code
 This package implements some of the boilerplate for out APP target:
