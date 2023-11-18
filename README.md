@@ -1,7 +1,7 @@
 # viewmodelify-swift helpers for ViewInspector
 
 ### SwiftUI.View is just a value
-SwiftUI.View does not have properties of a standard view.
+SwiftUI.View does not have properties like a standard view.
 There is no frame, no color, nothing that a view should have.
 It is just a protocol that you can conform ANY value to.
 It does not even have to be a struct.
