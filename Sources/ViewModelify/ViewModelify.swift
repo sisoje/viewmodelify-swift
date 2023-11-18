@@ -12,6 +12,30 @@ public final class Inspection<V> {
     }
 }
 
-@attached(extension, conformances: View, names: arbitrary)
+public protocol ViewInspectified: View {
+    var didAppear: ((Self) -> Void)? { get }
+    var inspection: Inspection<Self> { get }
+}
+
+public extension View {
+    @ViewBuilder func applyViewInspectorModifiers<V: View>(_ selfie: V) -> some View { self }
+
+    @ViewBuilder func applyViewInspectorModifiers<V: ViewInspectified>(_ selfie: V) -> some View {
+        onAppear {
+            print("\(V.self).onAppear")
+            selfie.didAppear?(selfie)
+        }
+        .onReceive(selfie.inspection.notice) {
+            print("\(V.self).onReceive")
+            selfie.inspection.visit(selfie, $0)
+        }
+    }
+}
+
+@attached(extension, conformances: ViewInspectified, names: arbitrary)
 @attached(member, names: arbitrary)
 public macro ViewModelify() = #externalMacro(module: "ViewModelifyMacros", type: "ViewModelify")
+
+@attached(extension, conformances: ViewInspectified, names: arbitrary)
+@attached(member, names: arbitrary)
+public macro ViewInspectify() = #externalMacro(module: "ViewModelifyMacros", type: "ViewInspectify")
