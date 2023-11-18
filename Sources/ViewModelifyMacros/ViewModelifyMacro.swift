@@ -19,7 +19,6 @@ public struct ViewInspectify: MemberMacro, ExtensionMacro {
         var res: [SwiftSyntax.DeclSyntax] = []
         if ViewModelifyEnv.isDebug {
             res.append("let inspection = Inspection<Self>()")
-            res.append("var didAppear: ((Self) -> Void)?")
         }
         return res
     }
@@ -41,7 +40,6 @@ public struct ViewModelify: MemberMacro, ExtensionMacro {
         var res: [SwiftSyntax.DeclSyntax] = ["var wrappedValue: Self { self }"]
         if ViewModelifyEnv.isDebug {
             res.append("let inspection = Inspection<Self>()")
-            res.append("var didAppear: ((Self) -> Void)?")
         }
         return res
     }
@@ -51,7 +49,7 @@ public struct ViewModelify: MemberMacro, ExtensionMacro {
             return []
         }
         let decl: DeclSyntax = """
-        extension \(raw: type.trimmedDescription): ViewInspectified {
+        extension \(raw: type.trimmedDescription): ViewInspectified, View {
           var body: some View {
             let _ = Self._printChanges()
             EmptyView()

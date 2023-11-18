@@ -5,6 +5,7 @@ public final class Inspection<V> {
     public init() {}
     public let notice = PassthroughSubject<UInt, Never>()
     public var callbacks: [UInt: (V) -> Void] = [:]
+    public var didAppear: ((V) -> Void)?
     public func visit(_ view: V, _ line: UInt) {
         if let callback = callbacks.removeValue(forKey: line) {
             callback(view)
@@ -12,27 +13,24 @@ public final class Inspection<V> {
     }
 }
 
-public protocol ViewInspectified: View {
-    var didAppear: ((Self) -> Void)? { get }
+public protocol ViewInspectified {
     var inspection: Inspection<Self> { get }
 }
 
 public extension View {
-    @ViewBuilder func applyViewInspectorModifiers<V: View>(_ selfie: V) -> some View { self }
-
-    @ViewBuilder func applyViewInspectorModifiers<V: ViewInspectified>(_ selfie: V) -> some View {
+    @ViewBuilder func applyViewInspectorModifiers<V: ViewInspectified>(_ v: V) -> some View {
         onAppear {
             print("\(V.self).onAppear")
-            selfie.didAppear?(selfie)
+            v.inspection.didAppear?(v)
         }
-        .onReceive(selfie.inspection.notice) {
+        .onReceive(v.inspection.notice) {
             print("\(V.self).onReceive")
-            selfie.inspection.visit(selfie, $0)
+            v.inspection.visit(v, $0)
         }
     }
 }
 
-@attached(extension, conformances: ViewInspectified, names: arbitrary)
+@attached(extension, conformances: ViewInspectified, View, names: arbitrary)
 @attached(member, names: arbitrary)
 public macro ViewModelify() = #externalMacro(module: "ViewModelifyMacros", type: "ViewModelify")
 
