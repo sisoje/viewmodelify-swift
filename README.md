@@ -50,6 +50,7 @@ This package implements some of the boilerplate:
 ### InspectionEmissary
 Only thing left for you to add in your TEST target is:
 ```
+import ViewModelify
+import ViewInspector
 extension Inspection: InspectionEmissary { }
 ```
-This may be not needed in future.
