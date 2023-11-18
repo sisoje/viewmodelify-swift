@@ -1,9 +1,9 @@
 import Combine
 
-#if canImport(ViewInspector) && canImport(XCTest)
-import ViewInspector
-extension Inspection: InspectionEmissary {}
-#endif
+//#if canImport(ViewInspector)
+//import ViewInspector
+//extension Inspection: InspectionEmissary {}
+//#endif
 
 public final class Inspection<V> {
     public init() {}
