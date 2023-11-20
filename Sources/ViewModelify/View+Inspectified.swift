@@ -2,14 +2,14 @@ import OSLog
 import SwiftUI
 
 public extension View {
-    @ViewBuilder func applyViewInspectorModifiers<V: Inspectified>(_ v: V) -> some View {
+    @ViewBuilder func applyViewInspectorModifiers<V: Inspectified>(_ view: V) -> some View {
         onAppear {
             Logger().info("Inspection: \(V.self).onAppear")
-            v.inspection.didAppear?(v)
+            view.inspection.didAppear?(view)
         }
-        .onReceive(v.inspection.notice) {
+        .onReceive(view.inspection.notice) {
             Logger().info("Inspection: \(V.self).onReceive")
-            v.inspection.visit(v, $0)
+            view.inspection.visit(view, $0)
         }
     }
 }
