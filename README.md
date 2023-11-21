@@ -4,7 +4,7 @@
 SwiftUI.View does not have properties like a standard view.
 There is no frame, no color, nothing that a view should have.
 It is just a protocol that you can conform ANY value to.
-It does not even have to be a struct. Just a value.
+It does not even have to be a struct. It is just a value.
 
 ### Business logic
 All functionality that is inside the SwiftUI.View conforming value is some business logic.
