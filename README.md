@@ -13,7 +13,9 @@ However we can decouple some of the business logic out of the SwiftUI.View into 
 
 ### Decoupling using Observable classes
 The process of abusing Observable classes is described here: [From SwiftUI “vanilla” to MVVM like a “pro”
-](https://medium.com/@redhotbits/from-swiftui-vanilla-to-mvvm-like-a-pro-470b22f304c9).
+](https://medium.com/@redhotbits/from-swiftui-vanilla-to-mvvm-like-a-pro-470b22f304c9). In the [SwiftData](https://www.hackingwithswift.com/quick-start/swiftdata/how-to-use-mvvm-to-separate-swiftdata-from-your-views) article Paul Hudson states:
+> a number of people have said outright that they think MVVM is dead with SwiftData
+Actually, this kind of MVVM with class type VM should have been dead long time ago in SwiftUI.
 
 ### Decoupling using DynamicProperty structs
 Unlike Observable classes the DynamicProperty structs will fully work inside SwiftUI view hierachies. We can decouple some of the business logic out of the SwiftUI.View without breaking stuff:
