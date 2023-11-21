@@ -16,6 +16,7 @@ The process of abusing Observable classes is described here by me: [From SwiftUI
 ](https://medium.com/@redhotbits/from-swiftui-vanilla-to-mvvm-like-a-pro-470b22f304c9).\
 Additionaly, in the [SwiftData](https://www.hackingwithswift.com/quick-start/swiftdata/how-to-use-mvvm-to-separate-swiftdata-from-your-views) article Paul Hudson clearly shows the failure of Observable classes with SwiftData and states:
 > a number of people have said outright that they think MVVM is dead with SwiftData
+
 Actually, this kind of MVVM with class type VM should have been dead long time ago in SwiftUI.
 
 ### Decoupling using DynamicProperty structs
