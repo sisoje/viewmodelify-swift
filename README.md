@@ -12,7 +12,7 @@ The `body` property is also some business logic. We usually keep `body` inside t
 However we can decouple some of the business logic out of the SwiftUI.View into a separate unit of code, but we have to do it properly.
 
 ### Decoupling using Observable classes
-The process of abusing Observable classes is described here: [From SwiftUI “vanilla” to MVVM like a “pro”
+The process of abusing Observable classes is described here by me: [From SwiftUI “vanilla” to MVVM like a “pro”
 ](https://medium.com/@redhotbits/from-swiftui-vanilla-to-mvvm-like-a-pro-470b22f304c9).\
 Additionaly, in the [SwiftData](https://www.hackingwithswift.com/quick-start/swiftdata/how-to-use-mvvm-to-separate-swiftdata-from-your-views) article Paul Hudson clearly shows the failure of Observable classes with SwiftData and states:
 > a number of people have said outright that they think MVVM is dead with SwiftData
