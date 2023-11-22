@@ -1,19 +1,17 @@
 import SwiftUI
 import ViewModelify
 
-@ViewInspectify
-struct SomeViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .applyViewInspectorModifiers(self)
+@InspectedView
+struct TestView {
+    var inspectedBody: some View {
+        Text("text")
     }
 }
 
-@ViewInspectify
-struct SomeView: View {
-    var body: some View {
-        EmptyView()
-            .applyViewInspectorModifiers(self)
+@InspectedViewModifier
+struct TestModifier {
+    func inspectedBody(content: Content) -> some View {
+        content.disabled(true)
     }
 }
 
@@ -21,5 +19,3 @@ struct SomeView: View {
 @propertyWrapper struct MainModel: DynamicProperty {
     @State var value = 0
 }
-
-

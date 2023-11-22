@@ -18,14 +18,12 @@ The process of abusing Observable classes is described here: [From SwiftUI “va
 ### Decoupling using DynamicProperty structs
 Unlike Observable classes the DynamicProperty structs will fully work inside SwiftUI view hierachies. We can decouple some of the business logic out of the SwiftUI.View without breaking stuff:
 ```
-@ViewModelify
 @propertyWrapper struct SwiftDataModel: DynamicProperty {
     @Environment(\.modelContext) private var modelContext
     @Query var items: [Item]
     func addItem() {}
 }
 
-@ViewInspectify
 struct SwiftDataView: View {
   @SwiftDataModel var model
   var body: some View {
@@ -38,9 +36,34 @@ struct SwiftDataView: View {
 ```
 
 ### Macros
-We can test both our view and our model in the same way:
-- For models we use @ViewModelify macro
-- For views and view-modifiers we use @ViewInspectify macro
+We can test our model in the same way as we would test a view.\
+For models we use @ViewModelify:
+```
+@ViewModelify
+@propertyWrapper struct SwiftDataModel: DynamicProperty {
+    @Environment(\.modelContext) private var modelContext
+    @Query var items: [Item]
+    func addItem() {}
+}
+```
+For views we use @InspectedView:
+```
+@InspectedView
+struct SomeView {
+    var inspectedBody: some View {
+        Text("text")
+    }
+}
+```
+For view modifiers we use @InspectedViewModifier:
+```
+@InspectedViewModifier
+struct TestModifier {
+    func inspectedBody(content: Content) -> some View {
+        content.disabled(true)
+    }
+}
+```
 
 ### Boilerplate code
 This package implements some of the boilerplate for out APP target:
