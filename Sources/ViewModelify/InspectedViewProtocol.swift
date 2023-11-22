@@ -1,6 +1,5 @@
 import OSLog
 import SwiftUI
-import ViewModelifyMacros
 
 public protocol InspectedViewProtocol: View, InspectionHolder {
     associatedtype InspectedBody: View
