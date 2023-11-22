@@ -37,9 +37,9 @@ struct SwiftDataView: View {
   }
 }
 ```
+We can test our model in the same way as we would test a view because it is a struct, a value - so it can conform to SwiftUI.View!
 
 ### Macros
-We can test our model in the same way as we would test a view.\
 For models we use @ViewModelify:
 ```
 @ViewModelify
