@@ -1,4 +1,3 @@
-import OSLog
 import SwiftUI
 
 public protocol InspectedViewModifierProtocol: ViewModifier, InspectionHolder {
