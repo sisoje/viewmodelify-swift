@@ -49,7 +49,7 @@ For models we use @ViewModelify:
     func addItem() {}
 }
 ```
-For views we use @InspectedView:
+For views we use @InspectedView with `var inspectedBody`:
 ```
 @InspectedView
 struct SomeView {
@@ -58,7 +58,7 @@ struct SomeView {
     }
 }
 ```
-For view modifiers we use @InspectedViewModifier:
+For view modifiers we use @InspectedViewModifier with `func inspectedBody`:
 ```
 @InspectedViewModifier
 struct TestModifier {
